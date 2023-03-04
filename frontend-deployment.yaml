@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app.kubernetes.io/name: employee-app
+    app.kubernetes.io/component: frontend
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: employee-app
+      app.kubernetes.io/component: frontend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: employee-app
+        app.kubernetes.io/component: frontend
+    spec:
+      containers:
+      - name: employee-app
+        image: 394986257079.dkr.ecr.us-east-1.amazonaws.com/clo835-assignment1-app:latest
+        # image: gcr.io/google-samples/gb-frontend:v4
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: GET_HOSTS_FROM
+          value: dns
+        ports:
+        - containerPort: 80
