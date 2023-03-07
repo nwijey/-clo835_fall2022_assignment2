@@ -8,9 +8,13 @@ metadata:
 spec:
   # if your cluster supports it, uncomment the following to automatically create
   # an external load-balanced IP for the frontend service.
-  # type: LoadBalancer
+  type: NodePort
   ports:
-  - port: 80
+  - port: 8080
+    targetPort: 8080
+    # Optional field
+    # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+    nodePort: 30000
   selector:
     app.kubernetes.io/name: employee-app
     app.kubernetes.io/component: frontend

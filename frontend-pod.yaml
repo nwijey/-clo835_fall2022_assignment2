@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Pod
 metadata:
   name: frontend
   labels:
@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: employee-app
       app.kubernetes.io/component: frontend
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -37,4 +37,4 @@ spec:
         - name: DBPWD
           value: "db_pass123"  
         ports:
-        - containerPort: 80
+        - containerPort: 8080

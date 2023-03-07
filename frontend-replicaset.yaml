@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
   name: frontend
   labels:
@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: employee-app
       app.kubernetes.io/component: frontend
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
