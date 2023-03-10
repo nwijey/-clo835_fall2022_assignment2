@@ -3,12 +3,12 @@ Hi there! Welcome to CLO835 - Assignment 2 - Naveen Wijeyasekaran!
 Deployment Steps -
 
 1. Deploy remote instance, and copy files to remote machine:
-    a. terraform apply -auto-approve 
+    a. terraform apply -auto-approve
     b. scp -i week5 init_kind.sh kind.yaml <remote ip>/tmp
     c. scp -i week5 ~/environment/Assignment2/* <remote ip>:/tmp 
     d. ssh -i week5 ec2-user@<remote ip>
     e. cd /tmp
-	f. chmod 777 init_kind.sh
+    f. chmod 777 init_kind.sh
 
 
 2. Run cluster and create namespace
