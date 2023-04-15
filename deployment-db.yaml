@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-db-dep
+  namespace: final
+  labels:
+    infra: backend
+    app: mysql
+    env: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-db-dep
+  template:
+    metadata:
+      labels:
+        app: mysql-db-dep
+    spec:
+      containers:
+      - name: mysql-db-dep
+        image: 394986257079.dkr.ecr.us-east-1.amazonaws.com/emp-db:latest
+        imagePullPolicy: Always
+        ports:
+        - name: mysql-db-dep
+          containerPort: 3306
+          protocol: TCP
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: dbinfo
+              key: database
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: dbinfo
+              key: dbuser        
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbpwd
+              key: dbpwd
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dbrootpwd
+              key: dbrootpwd
+      imagePullSecrets:
+      - name: ecr-cred

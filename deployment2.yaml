@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-app-dep
+  namespace: final
+  labels:
+    infra: frontend
+    app: employees
+    env: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employees
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      containers:
+      - name: colors-app
+        image: 394986257079.dkr.ecr.us-east-1.amazonaws.com/emp-app:latest
+        imagePullPolicy: Always
+        ports:
+        - name: http81
+          containerPort: 81
+          protocol: TCP
+        env:
+        - name: DBHOST
+          value: "mysql-db-dep"
+        - name: DBPORT
+          value: "3306"
+        - name: MYSQL_USER
+          value: "dbadmin"
+        - name: MYSQL_DATABASE
+          value: "employees"
+        - name: MYSQL_ROOT_PASSWORD
+          value: "pass1234"
+        - name: BGIMAGE
+          valueFrom:
+            configMapKeyRef:
+              name: webappinfo
+              key: bgimage
+        - name: OURNAMES
+          valueFrom:
+            configMapKeyRef:
+              name: webappinfo
+              key: ournames
+      imagePullSecrets:
+      - name: ecr-cred

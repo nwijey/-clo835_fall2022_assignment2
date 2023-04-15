@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: 394986257079.dkr.ecr.us-east-1.amazonaws.com/clo835-assignment1-db:db.latest
+        image: 394986257079.dkr.ecr.us-east-1.amazonaws.com/emp-db:latest
         resources:
           requests:
             cpu: 100m
